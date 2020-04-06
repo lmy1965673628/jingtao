@@ -18,7 +18,7 @@ public class ItemCatController {
 	 * 根据商品分类Id号  查询商品分类名称
 	 * url:/item/cat/queryItemName"
 	 * data:{itemCatId:val}  http:String
-	 * 
+	 *
 	 * SpringMVC参数说明:
 	 * 		规定:用户传递的参数名称必须和接收参数名称一致
 	 * 		1.dispathServlet
@@ -28,7 +28,7 @@ public class ItemCatController {
 	@RequestMapping("/queryItemName")
 	//不执行视图解析器代码
 	public String findItemCatNameById(Long itemCatId) {
-		
+
 		return itemCatService.findItemCatNameById(itemCatId);
 	}
 }
