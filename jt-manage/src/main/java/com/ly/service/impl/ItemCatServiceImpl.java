@@ -13,7 +13,6 @@ public class ItemCatServiceImpl implements ItemCatService {
 
 	@Resource
 	private ItemCatMapper itemCatMapper;
-
 	@Override
 	public String findItemCatNameById(Long itemCatId) {
 		
