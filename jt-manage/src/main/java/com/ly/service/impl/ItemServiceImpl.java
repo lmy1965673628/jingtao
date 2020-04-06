@@ -62,5 +62,4 @@ public class ItemServiceImpl implements ItemService {
         updateWrapper.in("id", idList);
         itemMapper.update(item, updateWrapper);
     }
-
 }
