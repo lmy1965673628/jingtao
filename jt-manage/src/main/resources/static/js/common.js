@@ -140,7 +140,7 @@ var TT = KindEditorUtil = {		//相当于java中定义的工具类，里面提供
     			    		animate:true,
     			    		onClick : function(node){
     			    			if($(this).tree("isLeaf",node.target)){
-    			    				// 填写到cid中
+    			    				// 填写到cid中，cid是input的name属性
     			    				_ele.parent().find("[name=cid]").val(node.id);
     			    				_ele.next().text(node.text).attr("cid",node.id);
     			    				$(_win).window('close');

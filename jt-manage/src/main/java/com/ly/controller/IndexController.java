@@ -40,4 +40,14 @@ public class IndexController {
 		return "/index";
 	}
 
+	/**
+	 * 用于看easyUIdemo
+	 * @param modelName
+	 * @return
+	 */
+	@RequestMapping("/easy-ui/{modelName}")
+	public String easyUI(@PathVariable String modelName) {
+		return "/easy-ui/"+modelName;
+	}
+
 }

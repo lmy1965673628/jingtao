@@ -1,10 +1,13 @@
 package com.ly.controller;
 
 import com.ly.service.ItemCatService;
+import com.ly.vo.EasyUITree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 
 
 @RestController
@@ -30,5 +33,19 @@ public class ItemCatController {
 	public String findItemCatNameById(Long itemCatId) {
 
 		return itemCatService.findItemCatNameById(itemCatId);
+	}
+
+	/**
+	 * @RequestParam
+	 * 		defaultValue: 	当参数为null时 设定默认值
+	 * 		name/value:     获取用户传递的数据信息
+	 * 		required: 		是否为必须传递的数据
+	 * @param parentId
+	 * @return
+	 */
+	@RequestMapping("/list")
+	public List<EasyUITree> findItemCatList(@RequestParam(defaultValue="0",name ="id") Long parentId){
+		//查询一级商品分类信息
+		return itemCatService.findEasyUITreeList(parentId);
 	}
 }
