@@ -95,8 +95,10 @@ var TT = KindEditorUtil = {		//相当于java中定义的工具类，里面提供
         			}
         		}
         	}
+			//给“上传图片按钮”绑定click事件
         	$(e).click(function(){
         		var form = $(this).parentsUntil("form").parent("form");
+				//打开图片上传窗口
         		KindEditor.editor(TT.kingEditorParams).loadPlugin('multiimage',function(){
         			var editor = this;
         			editor.plugin.multiImageDialog({
