@@ -1,5 +1,6 @@
 package com.ly.controller;
 
+import com.ly.anno.CacheFind;
 import com.ly.service.ItemCatService;
 import com.ly.vo.EasyUITree;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +44,10 @@ public class ItemCatController {
 	 * @return
 	 */
 	@RequestMapping("/list")
+	@CacheFind
 	public List<EasyUITree> findItemCatList(@RequestParam(defaultValue="0",name ="id") Long parentId){
 		//查询一级商品分类信息
-//		return itemCatService.findEasyUITreeList(parentId);
-		return itemCatService.findEasyUITreeCache(parentId);
+		return itemCatService.findEasyUITreeList(parentId);
+//		return itemCatService.findEasyUITreeCache(parentId);
 	}
 }
