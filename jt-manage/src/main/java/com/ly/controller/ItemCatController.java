@@ -45,6 +45,7 @@ public class ItemCatController {
 	@RequestMapping("/list")
 	public List<EasyUITree> findItemCatList(@RequestParam(defaultValue="0",name ="id") Long parentId){
 		//查询一级商品分类信息
-		return itemCatService.findEasyUITreeList(parentId);
+//		return itemCatService.findEasyUITreeList(parentId);
+		return itemCatService.findEasyUITreeCache(parentId);
 	}
 }

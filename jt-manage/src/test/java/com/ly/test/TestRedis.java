@@ -1,9 +1,14 @@
 package com.ly.test;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 
+
 public class TestRedis {
+    @Autowired
+    private Jedis jedis;
+
     /**
      * 测试String类型操作
      * 服务器前提：1.防火墙关闭  2.IP绑定注释  3.保护模式关闭
@@ -33,5 +38,10 @@ public class TestRedis {
         jedis.lpush("list", "1","2","3","4");
         System.out.println(jedis.rpop("list"));
     }
+    @Test
+    public void testLink(){
+        jedis.set("test","11111111111111");
+        System.out.println(jedis.get("test"));
 
+    }
 }
