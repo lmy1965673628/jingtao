@@ -82,10 +82,8 @@ public class CacheAspect {
         String key = cacheFind.key();  //默认值""
         if (StringUtils.isEmpty(key)) {
             //用户自动生成
-            String methodName =
-                    joinPoint.getSignature().getName();
-            String className =
-                    joinPoint.getSignature().getDeclaringTypeName();
+            String methodName = joinPoint.getSignature().getName();
+            String className = joinPoint.getSignature().getDeclaringTypeName();
             String arg1 = String.valueOf(joinPoint.getArgs()[0]);
             //com.ly.controller.list::0
             return className + "." + methodName + "::" + arg1;
