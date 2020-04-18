@@ -15,13 +15,13 @@ public class RedisConfig {
     private String host;
     @Value("${redis.port}")
     private Integer port;
-    @Value("${redis.password}")
-    private String password;
+//    @Value("${redis.password}")
+//    private String password;
 
     @Bean
     public Jedis jedis() {
         Jedis jedis = new Jedis(host, port);
-        jedis.auth(password);
+//        jedis.auth(password);
         return jedis;
     }
 }
