@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editable TreeGrid</title>
+    <title>Editable TreeGrid - jQuery EasyUI Demo</title>
+    <script src="/js/jquery-easyui-1.4.1/jquery.min.js"></script>
+    <script src="/js/jquery-easyui-1.4.1/jquery.easyui.min.js"></script>
+    <link href="/js/jquery-easyui-1.4.1/themes/default/easyui.css" rel="stylesheet"/>
+    <link href="/js/jquery-easyui-1.4.1/themes/icon.css" rel="stylesheet"/>
+    <script src="/js/jquery-easyui-1.4.1/locale/easyui-lang-zh_CN.js"></script>
+    <script>
+        var node1;
+        $(function () {
+            // 登录成功提示
+            $.messager.show({
+                title: '提示',
+                msg: "登录成功"
+            });
+            // 实例化树菜单
+            $("#tree").tree({
+                url: 'treegrid.json',
+                onLoadSuccess: function (node, data) {// 加载树
+                    var tree = $(this);
+                    if (data) {
+                        $(data).each(function (index, d) {
+                            if (this.state == 'closed') {
+                                tree.tree('expandAll');
+                            }
+                        });
+                    }
+                },
+                onClick: function (node) {// 添加tab
+                    if (node.attributes) {
+                        node1 = $("#tree").tree('getParent', node.target);
+                        openTab(node.text, node.attributes, node1.text);
+                    }
+                },
+                onContextMenu: function (e, node) {// 生成右键菜单
+                    e.preventDefault();
+                    $(this).tree('select', node.target);
+                    $('#tabsMenu').menu('show', {
+                        left: e.pageX,
+                        top: e.pageY
+                    });
+                    $('#tabsMenu').menu({
+                        onClick: function (item) {
+                            if (item.id == 1) {// 添加
+                                document.getElementById("mydialog").title = "添加节点";
+                                var node = $("#tree").tree('getSelected');
+                                document.getElementById("txRolename").value = "";
+                                alert(node.text);
+                                $('#mydialog').show();
+                                $('#mydialog').dialog({
+                                    collapsible: false,
+                                    minimizable: false,
+                                    maximizable: false,
+                                    buttons: [{
+                                        text: '提交',
+                                        iconCls: 'icon-ok',
+                                        handler: function () {
+                                            $.ajax({
+                                                url: "addTreeNode.do",
+                                                type: "post",
+                                                async: false,
+                                                data: "area=" + $("#txRolename").val() + "&pid=" + node.id,
+                                                dataType: "json",
+                                                success: function (data) {
+                                                    loadTree();
+                                                    $('#mydialog').dialog('close');
+                                                }
+                                            });
+                                        }
+                                    }, {
+                                        text: '取消',
+                                        handler: function () {
+                                            $('#mydialog').dialog('close');
+                                        }
+                                    }]
+                                });
+                            } else if (item.id == 2) {// 修改
+                                var node = $("#tree").tree('getSelected');
+                                document.getElementById("mydialog").title = "修改节点";
+                                document.getElementById("txRolename").value = node.text;
+                                $('#mydialog').show();
+                                $('#mydialog').dialog({
+                                    collapsible: false,
+                                    minimizable: false,
+                                    maximizable: false,
+                                    buttons: [{
+                                        text: '提交',
+                                        iconCls: 'icon-ok',
+                                        handler: function () {
+                                            $.ajax({
+                                                url: "updTreeNode.do",
+                                                type: "post",
+                                                async: false,
+                                                data: "area=" + $("#txRolename").val() + "&id=" + node.id,
+                                                dataType: "json",
+                                                success: function (data) {
+                                                    loadTree();
+                                                    $('#mydialog').dialog('close');
+                                                }
+                                            });
+                                        }
+                                    }, {
+                                        text: '取消',
+                                        handler: function () {
+                                            $('#mydialog').dialog('close');
+                                        }
+                                    }]
+                                });
+                            } else if (item.id == 3) {// 删除
+                                var node = $("#tree").tree('getSelected');
+                                $('#mydialogtemp').show();
+                                $('#mydialogtemp').dialog({
+                                    collapsible: true,
+                                    minimizable: true,
+                                    maximizable: true,
+                                    buttons: [{
+                                        text: '提交',
+                                        iconCls: 'icon-ok',
+                                        handler: function () {
+                                            alert('提交数据');
+                                            $.ajax({
+                                                url: "delTreeNode.do",
+                                                type: "post",
+                                                async: false,
+                                                data: "id=" + node.id,
+                                                dataType: "json",
+                                                success: function (data) {
+                                                    loadTree();
+                                                    $('#mydialogtemp').dialog('close');
+                                                }
+                                            });
+                                        }
+                                    }, {
+                                        text: '取消',
+                                        handler: function () {
+                                            $('#mydialog').dialog('close');
+                                        }
+                                    }]
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+
+            // 加载树
+            function loadTree() {
+                $("#tree").tree({
+                    url: 'getNodesById.do?id=1',
+                    onLoadSuccess: function (node, data) {
+                        var tree = $(this);
+                        if (data) {
+                            $(data).each(function (index, d) {
+                                if (this.state == 'closed') {
+                                    tree.tree('expandAll');
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+
+            // 新增Tab
+            function openTab(text, url, text1) {
+                if ($("#tabs").tabs('exists', text)) {
+                    $("#tabs").tabs('select', text);
+                } else {
+                    url = url + "area=" + text1;
+                    alert(url);
+                    var content = "<iframe frameborder='0' scrolling='auto' style='width:100%;height:100%' src=" + url + "></iframe>";
+                    $("#tabs").tabs('add', {
+                        title: text,
+                        closable: true,
+                        content: content
+                    });
+                }
+            }
+        });
+
+    </script>
+
+</head>
+<body class="easyui-layout">
+
+
+<div region="west" class="west" title="导航菜单">dialog-button
+    <ul id="tree"></ul>
+</div>
+
+<div id="tabsMenu" class="easyui-menu" style="width:120px;">
+    <div name="close" id="1">添加</div>
+    <div name="Other" id="2">修改</div>
+    <div name="All" id="3">删除</div>
+</div>
+<div id="mydialog" style="display:none;padding:10px;width:400px;height:100px;">
+    <label class="lbInfo">节点名称：</label>
+    <input id="txRolename" type="text" class="easyui-validatebox" required="true"/><br/>
+</div>
+<div id="mydialogtemp" style="display:none;padding:5px;width:400px;height:100px;" title="删除节点">
+    你确定要删除该节点？删除的同时会将该节点下的所有子节点删除！
+</div>
+</body>
+</html>
