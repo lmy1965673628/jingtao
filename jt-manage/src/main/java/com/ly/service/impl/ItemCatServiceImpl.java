@@ -41,7 +41,7 @@ public class ItemCatServiceImpl implements ItemCatService {
      */
     public List<ItemCat> findItemCatList(Long parentId) {
         QueryWrapper<ItemCat> queryWrapper =
-                new QueryWrapper<ItemCat>();
+                new QueryWrapper<>();
         queryWrapper.eq("parent_id", parentId);
         List<ItemCat> itemCatList = itemCatMapper.selectList(queryWrapper);
         return itemCatList;
@@ -50,7 +50,7 @@ public class ItemCatServiceImpl implements ItemCatService {
     @Override
     public List<EasyUITree> findEasyUITreeList(Long parentId) {
         //1.定义返回数据
-        List<EasyUITree> treeList = new ArrayList<EasyUITree>();
+        List<EasyUITree> treeList = new ArrayList<>();
         List<ItemCat> itemCatList = findItemCatList(parentId);
         for (ItemCat itemCat : itemCatList) {
             EasyUITree easyUITree = new EasyUITree();
@@ -67,7 +67,7 @@ public class ItemCatServiceImpl implements ItemCatService {
 
     @Override
     public List<EasyUITree> findEasyUITreeCache(Long parentId) {
-        List<EasyUITree> treeList = new ArrayList<EasyUITree>();
+        List<EasyUITree> treeList = new ArrayList<>();
         String key = "ITEM_CAT_"+parentId;
         //1.根据key查询redis服务器
         String result = jedis.get(key);
