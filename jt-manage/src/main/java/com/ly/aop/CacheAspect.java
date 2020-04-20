@@ -15,7 +15,7 @@ import redis.clients.jedis.Jedis;
 @Aspect        //表示标识切面  切面=切入点+通知
 public class CacheAspect {
 
-    @Autowired
+    @Autowired(required = false)
     private Jedis jedis;
 
     /**

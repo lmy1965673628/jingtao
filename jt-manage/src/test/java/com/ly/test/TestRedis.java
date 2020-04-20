@@ -3,6 +3,14 @@ package com.ly.test;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisSentinelPool;
+import redis.clients.jedis.JedisShardInfo;
+import redis.clients.jedis.ShardedJedis;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 public class TestRedis {
@@ -44,4 +52,32 @@ public class TestRedis {
         System.out.println(jedis.get("test"));
 
     }
+    /**
+     * redis分片测试
+     */
+    @Test
+    public void testShards() {
+        String host = "192.168.180.160";
+        List<JedisShardInfo> shards =
+                new ArrayList<JedisShardInfo>();
+        shards.add(new JedisShardInfo(host, 6379));
+        shards.add(new JedisShardInfo(host, 6380));
+        shards.add(new JedisShardInfo(host, 6381));
+        ShardedJedis jedis = new ShardedJedis(shards);
+        jedis.set("0419", "分片操作");
+        System.out.println(jedis.get("0419"));
+    }
+    /**
+     * 测试哨兵
+     */
+    @Test
+    public void testSentinel() {
+        Set<String> sentinels = new HashSet<>();
+        sentinels.add("192.168.180.160:26379");
+        JedisSentinelPool pool = new JedisSentinelPool("mymaster", sentinels) ;
+        Jedis jedis = pool.getResource();
+        jedis.set("0420", "测试哨兵!!!!");
+        System.out.println("获取数据:"+jedis.get("0420"));
+    }
+
 }
