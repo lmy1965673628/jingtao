@@ -1,16 +1,12 @@
 package com.ly.service.impl;
 
 
-import com.alibaba.druid.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ly.mapper.ItemCatMapper;
 import com.ly.pojo.ItemCat;
 import com.ly.service.ItemCatService;
-import com.ly.utils.JsonUtil;
 import com.ly.vo.EasyUITree;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import redis.clients.jedis.Jedis;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -21,8 +17,8 @@ public class ItemCatServiceImpl implements ItemCatService {
 
     @Resource
     private ItemCatMapper itemCatMapper;
-    @Autowired
-    private Jedis jedis;
+//    @Autowired
+//    private Jedis jedis;
     @Override
     public String findItemCatNameById(Long itemCatId) {
 
@@ -65,26 +61,26 @@ public class ItemCatServiceImpl implements ItemCatService {
         return treeList;
     }
 
-    @Override
-    public List<EasyUITree> findEasyUITreeCache(Long parentId) {
-        List<EasyUITree> treeList = new ArrayList<>();
-        String key = "ITEM_CAT_"+parentId;
-        //1.根据key查询redis服务器
-        String result = jedis.get(key);
-        if(StringUtils.isEmpty(result)) {
-            //表示缓存没有数据,需要查询数据库
-            treeList = findEasyUITreeList(parentId);
-            //将数据保存到缓存中
-            String value = JsonUtil.toJSON(treeList);
-            jedis.set(key, value);
-            System.out.println("查询后台数据库!!!!!");
-        }else {
-            //缓存中有数据
-            treeList = JsonUtil.toObject(result, treeList.getClass());
-            System.out.println("查询Redis缓存");
-        }
-
-        return treeList;
-
-    }
+//    @Override
+//    public List<EasyUITree> findEasyUITreeCache(Long parentId) {
+//        List<EasyUITree> treeList = new ArrayList<>();
+//        String key = "ITEM_CAT_"+parentId;
+//        //1.根据key查询redis服务器
+//        String result = jedis.get(key);
+//        if(StringUtils.isEmpty(result)) {
+//            //表示缓存没有数据,需要查询数据库
+//            treeList = findEasyUITreeList(parentId);
+//            //将数据保存到缓存中
+//            String value = JsonUtil.toJSON(treeList);
+//            jedis.set(key, value);
+//            System.out.println("查询后台数据库!!!!!");
+//        }else {
+//            //缓存中有数据
+//            treeList = JsonUtil.toObject(result, treeList.getClass());
+//            System.out.println("查询Redis缓存");
+//        }
+//
+//        return treeList;
+//
+//    }
 }

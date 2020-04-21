@@ -2,10 +2,7 @@ package com.ly.test;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisSentinelPool;
-import redis.clients.jedis.JedisShardInfo;
-import redis.clients.jedis.ShardedJedis;
+import redis.clients.jedis.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -40,18 +37,21 @@ public class TestRedis {
         jedis.hset("person", "age", "18");
         System.out.println(jedis.hgetAll("person"));
     }
+
     @Test
     public void testList() {
         Jedis jedis = new Jedis("192.168.180.160", 6379);
-        jedis.lpush("list", "1","2","3","4");
+        jedis.lpush("list", "1", "2", "3", "4");
         System.out.println(jedis.rpop("list"));
     }
+
     @Test
-    public void testLink(){
-        jedis.set("test","11111111111111");
+    public void testLink() {
+        jedis.set("test", "11111111111111");
         System.out.println(jedis.get("test"));
 
     }
+
     /**
      * redis分片测试
      */
@@ -67,6 +67,7 @@ public class TestRedis {
         jedis.set("0419", "分片操作");
         System.out.println(jedis.get("0419"));
     }
+
     /**
      * 测试哨兵
      */
@@ -74,10 +75,25 @@ public class TestRedis {
     public void testSentinel() {
         Set<String> sentinels = new HashSet<>();
         sentinels.add("192.168.180.160:26379");
-        JedisSentinelPool pool = new JedisSentinelPool("mymaster", sentinels) ;
+        JedisSentinelPool pool = new JedisSentinelPool("mymaster", sentinels);
         Jedis jedis = pool.getResource();
         jedis.set("0420", "测试哨兵!!!!");
-        System.out.println("获取数据:"+jedis.get("0420"));
+        System.out.println("获取数据:" + jedis.get("0420"));
+    }
+
+    @Test
+    public void testCluster() {
+        Set<HostAndPort> nodes = new HashSet<>();
+        nodes.add(new HostAndPort("192.168.180.160", 7000));
+        nodes.add(new HostAndPort("192.168.180.160", 7001));
+        nodes.add(new HostAndPort("192.168.180.160", 7002));
+        nodes.add(new HostAndPort("192.168.180.160", 7003));
+        nodes.add(new HostAndPort("192.168.180.160", 7004));
+        nodes.add(new HostAndPort("192.168.180.160", 7005));
+
+        JedisCluster cluster = new JedisCluster(nodes);
+        cluster.set("0421", "redis集群搭建完成!!!!");
+        System.out.println(cluster.get("0421"));
     }
 
 }

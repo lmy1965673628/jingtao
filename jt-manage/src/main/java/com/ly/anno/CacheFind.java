@@ -19,7 +19,7 @@ public @interface CacheFind {
      * 0表示用户设置该数据不需要超时时间,如果不等于0则说明用户自己定义了超时时间
      * @return
      */
-    int seconds() default 0;
+    int seconds() default 600;
 
 }
 

@@ -9,14 +9,16 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisCluster;
 
 @Component    //将对象交给spring容器管理
 @Aspect        //表示标识切面  切面=切入点+通知
 public class CacheAspect {
+    //@Autowired(required = false)
+//    private Jedis jedis;
 
     @Autowired(required = false)
-    private Jedis jedis;
+    private JedisCluster jedis;
 
     /**
      * 环绕通知:
