@@ -99,4 +99,8 @@ public class ItemServiceImpl implements ItemService {
 
     }
 
+    @Override
+    public Item findItemById(Long itemId) {
+        return itemMapper.selectById(itemId);
+    }
 }

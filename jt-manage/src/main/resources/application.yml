@@ -3,6 +3,10 @@ server:
   servlet:
     context-path: /
 spring:
+
+  mvc:
+    favicon:
+      enabled: true
   datasource:
     #引入druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
@@ -13,13 +17,8 @@ spring:
   thymeleaf:
     #缓冲的配置
     cache: false
-    check-template: true
-    check-template-location: true
-    #开启MVC thymeleaf 视图解析
-    enabled: true
     encoding: utf-8
-    mode: HTML5
-    prefix: classpath:/templates/
+    prefix: classpath:/templates
     suffix: .html
 #mybatis-plush配置
 mybatis-plus:
