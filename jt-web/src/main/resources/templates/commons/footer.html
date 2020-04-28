@@ -106,7 +106,7 @@
         var B = ["java", "apple", "LG G3", "天梭", "保温杯", "三个爸爸"];
         B = pageConfig.FN_GetRandomData(B);
         $("#hotwords").html(A);
-        var _searchValue = "${query}";
+        var _searchValue = "[[${query}]]";
         if (_searchValue.length == 0) {
             _searchValue = B;
         }
