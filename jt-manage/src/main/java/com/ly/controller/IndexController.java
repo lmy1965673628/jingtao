@@ -41,7 +41,10 @@ public class IndexController {
     public String index() {
         return "/index";
     }
-
+    @RequestMapping("/{name}")
+    public String test(@PathVariable String name) {
+        return "/"+name;
+    }
     /**
      * 用于看easyUIdemo
      *

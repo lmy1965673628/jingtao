@@ -7,7 +7,7 @@ spring:
     favicon:
       enabled: true
   thymeleaf:
-    #»º³åµÄÅäÖÃ
+    #ç¼“å†²çš„é…ç½®
     cache: false
     encoding: utf-8
     prefix: classpath:/templates
