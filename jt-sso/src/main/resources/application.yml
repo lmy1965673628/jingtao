@@ -1,0 +1,18 @@
+server:
+  port: 8093
+  servlet:
+    context-path: /
+spring:
+  mvc:
+    favicon:
+      enabled: true
+  thymeleaf:
+    #ª∫≥Âµƒ≈‰÷√
+    cache: false
+    encoding: utf-8
+    prefix: classpath:/templates
+    suffix: .html
+
+logging:
+  level:
+    com.ly.mapper: debug
