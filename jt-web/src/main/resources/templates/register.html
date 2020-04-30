@@ -70,7 +70,7 @@
         }
     }</script>
 <!--shortcut start-->
-<jsp:include page="../commons/shortcut.jsp" />
+<th:block th:replace="/commons/shortcut:: shortcut"></th:block>
 <!--shortcut end-->
 <div class="w" id="logo">
     <div>
@@ -84,14 +84,14 @@
     <div class="mt">
         <ul class="tab">
             <li class="curr">个人用户</li>
-            <li class="line hide"><a clstag="regist|keycount|personalreg|02" href="../reg/company">企业用户</a></li>
+            <li class="line hide"><a clstag="regist|keycount|personalreg|02" href="/reg/company">企业用户</a></li>
             <li class="fore hide"><a href="http://passport.en.jd.com/user/facade">International Customers</a></li>
         </ul>
         <div class="extra">
         <span style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="flk13"
                                                                                onclick="javascript:location.href=&quot;http://en.360buy.com&quot;+location.search;"
                                                                                href="#">English</a></span> <span>我已经注册，现在就&nbsp;<a
-                href="http://www.jt.com/user/login.html"
+                href="http://www.jt.com/user/login"
                 class="flk13">登录</a></span>
         </div>
     </div>
