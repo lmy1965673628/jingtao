@@ -6,9 +6,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-@TableName("tb_user")
 @Data
 @Accessors(chain = true)
+@TableName("tb_user")
 public class User extends BasePojo {
     /**
      * 用户Id号  主键自增

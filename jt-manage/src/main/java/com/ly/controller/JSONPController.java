@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class JSONPController {
-
-
     @RequestMapping("/web/testJSONP")
     public JSONPObject jsonp(String callback) {
         ItemCat itemCat = new ItemCat();
@@ -16,5 +14,4 @@ public class JSONPController {
         itemCat.setName("jsonp测试调用!!!!");
         return new JSONPObject(callback, itemCat);
     }
-
 }
