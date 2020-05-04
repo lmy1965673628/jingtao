@@ -16,3 +16,12 @@ spring:
 logging:
   level:
     com.ly.mapper: debug
+
+#添加dubbo配制
+dubbo:
+  scan:
+    basePackages: com.ly
+  application:
+    name: consumer-web
+  registry:
+    address: zookeeper://192.168.180.160:2181

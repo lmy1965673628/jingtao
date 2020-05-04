@@ -24,3 +24,18 @@ mybatis-plus:
 logging:
   level:
     com.ly.mapper: debug
+
+#spring整合dubbo
+dubbo:
+  scan:
+    basePackages: com.ly    #开启包扫描
+  application:
+    name: provider-user     #必须添加服务名称
+  registry:                 #链接注册中心
+    address: zookeeper://192.168.180.160:2181?backup=192.168.180.160:2182,192.168.180.160:2183
+  protocol:
+    name: dubbo
+    #注册中心信息存储文件夹的名称
+    port: 20880
+    #每个服务都有自己独立的端口号
+    #注意事项:服务的提供者可以有多个,但是必须服务名称必须一致.在服务内部.为了区分到底是哪个服务使用端口区分.
