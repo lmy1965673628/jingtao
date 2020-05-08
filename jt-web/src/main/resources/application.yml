@@ -3,9 +3,6 @@ server:
   servlet:
     context-path: /
 spring:
-  mvc:
-    favicon:
-      enabled: true
   thymeleaf:
     #缓冲的配置
     cache: false

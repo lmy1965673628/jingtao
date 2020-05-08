@@ -3,10 +3,6 @@ server:
   servlet:
     context-path: /
 spring:
-
-  mvc:
-    favicon:
-      enabled: true
   datasource:
     #引入druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
