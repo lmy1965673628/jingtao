@@ -31,7 +31,7 @@
 
         //利用post传值
         function addCart(){
-            var url = "http://www.jt.com/cart/add/${item.id}.html";
+            var url = "http://www.jt.com/cart/add/[[${item.id}]]";
             document.forms[0].action = url;		//js设置提交链接
             document.forms[0].submit();			//js表单提交
         }
@@ -51,7 +51,7 @@
 <div class="w">
     <div id="product-intro" >
         <div id="name">
-            <h1 th:text="${item.title}">${ }</h1>
+            <h1 th:text="${item.title}"> </h1>
             <strong  th:text="${item.sellPoint}">${item.sellPoint}</strong>
         </div><!--name end-->
         <script type='text/javascript'>var warestatus = 1; var eleSkuIdKey =[];</script>
@@ -65,7 +65,7 @@
                         <a id="notice-downp" href="#none" target="_blank" clstag="shangpin|keycount|product|jiangjia">(降价通知)</a>
                     </div>
                 </li>
-                <li id="summary-market"><div class="dt">商品编号：</div><div class="dd"><span th:text="${item.id}">${}</span></div></li>
+                <li id="summary-market"><div class="dt">商品编号：</div><div class="dd"><span th:text="${item.id}"></span></div></li>
                 <li id="summary-grade">
                     <div class="dt">商品评分：</div>
                     <div class="dd">

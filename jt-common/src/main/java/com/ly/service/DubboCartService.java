@@ -8,5 +8,9 @@ import java.util.List;
 public interface DubboCartService {
 
 	List<Cart> findCartListByUserId(Long userId);
+	void updateNum(Cart cart);
 
+	void deleteCart(Cart cart);
+
+	void insertCart(Cart cart);
 }

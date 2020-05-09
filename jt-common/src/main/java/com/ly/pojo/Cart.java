@@ -1,9 +1,10 @@
 package com.ly.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.experimental.Accessors;
-
+@JsonIgnoreProperties(ignoreUnknown=true)
 @TableName("tb_cart")
 @Data
 @Accessors(chain = true)
