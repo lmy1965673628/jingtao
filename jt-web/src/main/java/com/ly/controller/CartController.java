@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.ly.pojo.Cart;
 import com.ly.service.DubboCartService;
+import com.ly.util.UserThreadLocal;
 import com.ly.vo.SysResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +28,7 @@ public class CartController {
 	 */
 	@RequestMapping("/show")
 	public String show(Model model) {
-		Long userId = 7L; //暂时写死
+		Long userId = UserThreadLocal.get().getId();
 		List<Cart> cartList = cartService.findCartListByUserId(userId);
 		Double totalPrice=0.0;
 		if(CollectionUtils.isNotEmpty(cartList)){
@@ -45,7 +46,7 @@ public class CartController {
 	@PostMapping("/update/num/{itemId}/{num}")
 	@ResponseBody
 	public SysResult updateNum(@PathVariable Long itemId,@PathVariable Integer num) {
-		Long userId = 7L;
+		Long userId = UserThreadLocal.get().getId();
 		Cart cart = new Cart();
 		cart.setUserId(userId).setItemId(itemId).setNum(num);
 		cartService.updateNum(cart);
@@ -53,7 +54,7 @@ public class CartController {
 	}
 	@RequestMapping("/delete/{itemId}")
 	public String deleteCart(Cart cart) {
-		Long userId = 7L;
+		Long userId = UserThreadLocal.get().getId();
 		cart.setUserId(userId);
 		cartService.deleteCart(cart);
 		return "redirect:/cart/show";
@@ -63,7 +64,7 @@ public class CartController {
 	 */
 	@RequestMapping("/add/{itemId}")
 	public String saveCart(Cart cart) {
-		Long userId = 7L;
+		Long userId = UserThreadLocal.get().getId();
 		cart.setUserId(userId);
 		cartService.insertCart(cart);
 		return "redirect:/cart/show";
