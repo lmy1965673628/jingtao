@@ -45,7 +45,7 @@ public class UserInterceptor implements HandlerInterceptor{
 		//1.获取用户cookie信息
 		Cookie[] cookies = request.getCookies();
 		String ticket = null;
-		if(cookies.length > 0) {
+		if(cookies!=null&&cookies.length>0) {
 			for (Cookie cookie : cookies) {
 				if("JT_TICKET".equals(cookie.getName())) {
 					ticket = cookie.getValue();
@@ -67,7 +67,7 @@ public class UserInterceptor implements HandlerInterceptor{
 			}
 		}
 		//重定向到用户登录页面
-		response.sendRedirect("/user/login.html");
+		response.sendRedirect("/user/login");
 		return false; //表示请求拦截 
 	}
 	
